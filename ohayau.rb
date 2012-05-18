@@ -29,7 +29,7 @@ if __FILE__ == $0
     tw.update(text)
 
   when arg == "--beer"
-    beer = y_config[:beer]
+    beer = y_conf[:beer]
     ws = ""
     rand(17).times do
       text = beer + ws
