@@ -1,0 +1,13 @@
+# yaml for ohayau.rb
+:twitter:
+  :consumer_key: <ADD YOUR CONSUMER KEY>
+  :consumer_secret: <ADD YOUR CONSUMER SECRET>
+  :oauth_token: <ADD YOUR OAUTH TOKEN>
+  :oauth_token_secret: <ADD YOUR OAUTH TOKEN SECRET>
+
+# Set whitespace
+:whitespace: "　"
+
+# Set your characters and phrases
+:beer: "🍺"
+
