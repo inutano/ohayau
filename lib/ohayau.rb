@@ -2,37 +2,32 @@
 
 require "yaml"
 require "twitter"
-require "user_stream"
 require "open-uri"
-require "ap"
 
 def randomize(neta)
   neta.scan(/./).shuffle.join
 end
 
 if __FILE__ == $0
-  current = File.expand_path(File.dirname(__FILE__))
-  y_conf = YAML.load_file("#{current}/ohayauconfig.yaml")
+  current_dir = File.expand_path(File.dirname(__FILE__))
+  y_conf = YAML.load_file("#{current_dir}/../config/ohayauconfig.yaml")
   tw_conf = y_conf[:twitter]
   
-  Twitter.configure do |config|
+  tw = Twitter::REST::Client.new do |config|
     config.consumer_key = tw_conf[:consumer_key]
     config.consumer_secret = tw_conf[:consumer_secret]
-    config.oauth_token = tw_conf[:oauth_token]
-    config.oauth_token_secret = tw_conf[:oauth_token_secret]
+    config.access_token = tw_conf[:oauth_token]
+    config.access_token_secret = tw_conf[:oauth_token_secret]
   end
 
-  UserStream.configure do |config|
+  us = Twitter::Streaming::Client.new do |config|
     config.consumer_key = tw_conf[:consumer_key]
     config.consumer_secret = tw_conf[:consumer_secret]
-    config.oauth_token = tw_conf[:oauth_token]
-    config.oauth_token_secret = tw_conf[:oauth_token_secret]
+    config.access_token = tw_conf[:oauth_token]
+    config.access_token_secret = tw_conf[:oauth_token_secret]
   end
   
-  tw = Twitter::Client.new
   arg = ARGV.first
-  
-  us = UserStream.client
   
   case arg
   when "--post"
